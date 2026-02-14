@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GHZ Build PC</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    background:#f3f4f6;
+    overflow-x:hidden;
+}
+
+/* NAVBAR */
+nav{
+    background:#111;
+    color:white;
+    padding:15px 60px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    transform:translateY(-100%);
+    opacity:0;
+    animation:navDrop 1s forwards;
+}
+
+@keyframes navDrop{
+    to{
+        transform:translateY(0);
+        opacity:1;
+    }
+}
+
+nav ul{
+    display:flex;
+    list-style:none;
+}
+
+nav ul li{
+    margin-left:20px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+nav ul li:hover{
+    color:#a855f7;
+}
+
+/* HERO */
+.hero{
+    background:linear-gradient(-45deg,#7c3aed,#9333ea,#6d28d9,#a855f7);
+    background-size:400% 400%;
+    animation:gradientMove 8s ease infinite;
+    color:white;
+    padding:100px 60px;
+}
+
+@keyframes gradientMove{
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+
+.hero h1{
+    font-size:42px;
+    margin-bottom:20px;
+}
+
+button{
+    padding:10px 20px;
+    margin:10px 10px 0 0;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    font-weight:bold;
+    background:white;
+    color:#7c3aed;
+    transition:0.3s;
+}
+
+button:hover{
+    background:#ddd6fe;
+    transform:scale(1.05);
+}
+
+/* BUILD */
+.build{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:80px 60px;
+    flex-wrap:wrap;
+    background:white;
+}
+
+.build-text{
+    max-width:500px;
+}
+
+.build img{
+    width:450px;
+    max-width:100%;
+    opacity:0;
+    transform:translateX(100px);
+    transition:1s;
+}
+
+.build img.show{
+    opacity:1;
+    transform:translateX(0);
+}
+
+/* FEATURES */
+.features{
+    display:flex;
+    justify-content:space-around;
+    padding:80px 60px;
+    background:#f3f4f6;
+    flex-wrap:wrap;
+}
+
+.card{
+    background:#e5e7eb;
+    padding:30px;
+    width:220px;
+    text-align:center;
+    border-radius:10px;
+    margin:15px;
+    opacity:0;
+    transform:translateY(50px);
+    transition:0.6s;
+}
+
+.card.show{
+    opacity:1;
+    transform:translateY(0);
+}
+
+.card:hover{
+    background:#ddd6fe;
+    transform:translateY(-10px) scale(1.05);
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+    <h2>NZXT</h2>
+    <ul>
+        <li>Gaming PCs</li>
+        <li>PC Components</li>
+        <li>Support</li>
+        <li>Community</li>
+    </ul>
+</nav>
+
+<section class="hero">
+    <h1>PC Components</h1>
+    <p>Performance. Quality. Design. Usability.</p>
+
+    <button onclick="gantiTema()">Ganti Tema</button>
+    <button onclick="scrollKeFitur()">Lihat Fitur</button>
+    <button onclick="infoBuild()">Info Build</button>
+</section>
+
+<section class="build">
+    <div class="build-text">
+        <h2>GHz Build PC</h2>
+        <p>
+            Each component is crafted for performance, quality,
+            design, and usability so you can build with confidence.
+        </p>
+    </div>
+
+    <img src="pc.png" alt="Gaming PC" id="pcImage">
+</section>
+
+<section class="features" id="fitur">
+    <div class="card"><h3>Performance</h3><p>Run at its best.</p></div>
+    <div class="card"><h3>Quality</h3><p>Premium durability.</p></div>
+    <div class="card"><h3>Design</h3><p>Modern aesthetic.</p></div>
+    <div class="card"><h3>Usability</h3><p>Easy and intuitive.</p></div>
+</section>
+
+<audio id="klikSound" src="click.mp3"></audio>
+
+<script>
+
+// SOUND
+const sound = document.getElementById("klikSound");
+
+function playSound(){
+    sound.currentTime = 0;
+    sound.play();
+}
+
+// TOMBOL
+function gantiTema(){
+    playSound();
+    if(document.body.style.backgroundColor === "black"){
+        document.body.style.backgroundColor = "#f3f4f6";
+    } else {
+        document.body.style.backgroundColor = "black";
+    }
+}
+
+function scrollKeFitur(){
+    playSound(); // biar tetap ada suara
+    setTimeout(function(){
+        window.location.href = "fitur.html";
+    }, 200); // delay sedikit biar suara sempat bunyi
+}
+
+
+function infoBuild(){
+    playSound();
+    alert("GHZ Build PC - Performance, Quality, Design & Usability 🚀");
+}
+
+// SCROLL ANIMATION
+const observer = new IntersectionObserver(entries=>{
+    entries.forEach(entry=>{
+        if(entry.isIntersecting){
+            entry.target.classList.add("show");
+        }
+    });
+});
+
+document.querySelectorAll(".card").forEach(el=>observer.observe(el));
+observer.observe(document.getElementById("pcImage"));
+
+</script>
+
+</body>
+</html>
